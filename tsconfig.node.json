@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "types": ["node"],             // ✅ esto habilita los tipos de Node.js
+    "moduleResolution": "Node",   // ✅ importante para permitir importar 'fs'
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ES2023"],
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "strict": true
+  },
+  "include": ["vite.config.ts"]
+}
