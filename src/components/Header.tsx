@@ -36,7 +36,7 @@ function Header() {
 
   return (
     <NavContainer>
-      <h1>Ecommerce</h1>
+      <h1>J2 Store</h1>
       <NavLinks>
         <StyledLink to="/">Inicio</StyledLink>
         {!isAuthenticated && <StyledLink to="/login">Login</StyledLink>}

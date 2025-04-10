@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import theme from "./shared/styles/theme";
 import GlobalStyle from "./shared/styles/globalStyles";
 import App from "./App";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from "react-router-dom";
 
 createRoot(document.getElementById("root")!).render(

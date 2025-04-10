@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useAuth } from "../context/authContext";
-import { createUser } from "../services/adminService";
+import { useAuth } from "../../context/authContext";
+import { createUser } from "../../services/adminService";
 
 
 const FormContainer = styled.div`

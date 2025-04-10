@@ -31,7 +31,7 @@ function Layout({ children }: LayoutProps) {
     <Container>
       <Navbar />
       <Main>{children}</Main>
-      <Footer>© 2024 Ecommerce</Footer>
+      <Footer>© 2024 J2 Store</Footer>
     </Container>
   );
 }
