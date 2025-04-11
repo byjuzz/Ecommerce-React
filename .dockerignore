@@ -1,0 +1,25 @@
+# node y dist
+node_modules
+dist
+dist-ssr
+
+# seguridad
+.env
+*.pem
+*.key
+
+# temporales y editores
+*.log
+.DS_Store
+.vscode
+.idea
+
+# control de versiones
+.git
+.gitignore
+.husky
+
+# otros innecesarios
+README.md
+docker-compose.yml
+*.tsbuildinfo

@@ -80,7 +80,6 @@ const Avatar = styled(FaUserCircle)`
   color: #007bff;
 `;
 
-
 interface SidebarProps {
   open: boolean;
   onClose: () => void;
@@ -92,13 +91,44 @@ const SidebarMenu: React.FC<SidebarProps> = ({ open, onClose }) => {
     <Overlay open={open} onClick={onClose}>
       <Sidebar open={open} onClick={(e) => e.stopPropagation()}>
         <CloseBtn onClick={onClose}>×</CloseBtn>
-  {/* Usuario arriba */}
-  <UserSection as={Link} to={user ? "/profile" : "/login"}>
+        {/* Usuario arriba */}
+        <UserSection>
           <Avatar />
-          <UserText>
-            {user ? `Hola, ${user.name}` : 'Inicia sesión'}
-          </UserText>
+          <div>
+            {user ? (
+              <UserText style={{ marginBottom: '4px' }}>
+                Hola, {user.name}
+              </UserText>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  style={{
+                    fontSize: '14px',
+                    color: '#007bff',
+                    textDecoration: 'none',
+                    display: 'inline-block',
+                    marginBottom: '4px',
+                  }}
+                >
+                  Iniciar sesión
+                </Link>
+                <Link
+                  to="/register"
+                  style={{
+                    fontSize: '14px',
+                    color: '#007bff',
+                    textDecoration: 'none',
+                    display: 'inline-block',
+                  }}
+                >
+                  Registrarte
+                </Link>
+              </>
+            )}
+          </div>
         </UserSection>
+
         <SectionTitle>Categorías Populares</SectionTitle>
         <Item>Electrónica</Item>
         <Item>Hogar Inteligente</Item>

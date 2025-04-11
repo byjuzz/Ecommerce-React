@@ -7,6 +7,7 @@ import UserListPage from '../modules/identity/pages/users/UserListPage';
 import RoleListPage from '../modules/identity/pages/roles/RoleListPage';
 import AssignRolePage from '../modules/identity/pages/roles/AssignRolePage';
 import CreateRolePage from '../modules/identity/pages/roles/CreateRolePage';
+import RegisterPage from '../modules/identity/pages/RegisterPage';
 const AppRoutes = () => {
   return (
     <Routes>
@@ -18,6 +19,7 @@ const AppRoutes = () => {
       <Route path="/admin/roles" element={<RoleListPage />} />
       <Route path="/admin/assign-role" element={<AssignRolePage />} />
       <Route path="/admin/roles/create" element={<CreateRolePage />} />
+      <Route path="/register" element={<RegisterPage />} />
 
     </Routes>
   );
