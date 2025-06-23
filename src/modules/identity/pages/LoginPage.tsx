@@ -1,4 +1,3 @@
-// src/modules/identity/pages/LoginPage.tsx
 import React, { useState } from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
@@ -8,29 +7,53 @@ const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-console.log(form.email, form.password);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();         // ✅ Bien hecho
+    e.preventDefault();
+    setError("");
+
+    if (!form.email || !form.password) {
+      setError("Correo y contraseña son obligatorios");
+      return;
+    }
+
     try {
-      setError("");
-      console.log(form.email, form.password); // 👈 Esto lo imprime múltiples veces
+      setSubmitting(true);
       await login(form);
       navigate("/");
     } catch (err) {
       setError("Credenciales inválidas");
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name="email" value={form.email} onChange={handleChange} placeholder="Correo" />
-      <input name="password" type="password" value={form.password} onChange={handleChange} placeholder="Contraseña" />
-      <button type="submit">Iniciar sesión</button>
+      <input
+        name="email"
+        type="email"
+        autoComplete="email"
+        value={form.email}
+        onChange={handleChange}
+        placeholder="Correo"
+      />
+      <input
+        name="password"
+        type="password"
+        autoComplete="current-password"
+        value={form.password}
+        onChange={handleChange}
+        placeholder="Contraseña"
+      />
+      <button type="submit" disabled={submitting}>
+        {submitting ? "Ingresando..." : "Iniciar sesión"}
+      </button>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </form>
   );

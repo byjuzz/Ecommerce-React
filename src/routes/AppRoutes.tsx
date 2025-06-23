@@ -8,6 +8,22 @@ import RoleListPage from '../modules/identity/pages/roles/RoleListPage';
 import AssignRolePage from '../modules/identity/pages/roles/AssignRolePage';
 import CreateRolePage from '../modules/identity/pages/roles/CreateRolePage';
 import RegisterPage from '../modules/identity/pages/RegisterPage';
+import CreateProductPage from '../modules/catalog/pages/CreateProductPage';
+import ProfilePage from '../modules/identity/pages/ProfilePage';
+import CreateCategoryPage from '../modules/catalog/pages/CreateCategoryPage';
+import CategoryListPage from '../modules/catalog/pages/CategoryListPage';
+import EditProductPage from '../modules/catalog/pages/EditProductPage';
+import ProductListPage from '../modules/catalog/pages/ProductListPage';
+import ProductDetailPage from '../modules/catalog/pages/ProductDetailPage';
+import MyOrdersPage from '../modules/orders/pages/MyOrdersPage';
+import OrderDetailPage from '../modules/orders/pages/OrderDetailPage';
+import CheckoutPage from '../modules/orders/pages/CheckoutPage';
+import CartPage from '../modules/orders/pages/CartPage';
+import CustomerListPage from '../modules/customers/pages/CustomerListPage';
+
+
+
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -20,6 +36,23 @@ const AppRoutes = () => {
       <Route path="/admin/assign-role" element={<AssignRolePage />} />
       <Route path="/admin/roles/create" element={<CreateRolePage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/admin/products/create" element={<CreateProductPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/admin/categories/create" element={<CreateCategoryPage />} />
+      <Route path="/admin/categories" element={<CategoryListPage />} />
+      <Route path="/admin/products/:id/edit" element={<EditProductPage />} />
+      <Route path="/admin/products" element={<ProductListPage />} />
+      <Route path="/products/:id" element={<ProductDetailPage />} />
+      <Route path="/orders" element={<MyOrdersPage />} />
+      <Route path="/orders/:id" element={<OrderDetailPage />} />
+      <Route path="/checkout" element={<CheckoutPage />} />
+      <Route path="/cart" element={<CartPage />} />
+      <Route path="/admin/customers" element={<CustomerListPage />} />
+
+
+
+
+
 
     </Routes>
   );

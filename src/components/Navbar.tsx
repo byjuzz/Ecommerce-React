@@ -93,6 +93,32 @@ const Navbar: React.FC = () => {
                   <Link to="/admin/roles/create" style={dropdownItem}>
                     Crear rol
                   </Link>
+                  <Link to="/admin/products/create" style={dropdownItem}>
+                    Crear producto
+                  </Link>
+                  <Link to="profile" style={dropdownItem}>
+                    Perfil
+                  </Link>
+                  <Link to="/admin/categories/create" style={dropdownItem}>
+                    Crear categoria
+                  </Link>
+                  <Link to="/admin/categories" style={dropdownItem}>
+                    Lista categoria
+                  </Link>
+                  <Link to="/admin/products" style={dropdownItem}>
+                    Lista productos
+                  </Link>
+                  <Link to="/products/:id" style={dropdownItem}>
+                    Detail
+                  </Link>
+                  <Link to="/checkout" style={dropdownItem}>
+                    Checkout
+                  </Link>
+                  <Link to="/cart" style={dropdownItem}>
+                    Cart
+                  </Link>
+                  
+                  
                 </div>
               )}
             </div>
