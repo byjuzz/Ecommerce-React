@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import SidebarMenu from './SidebarMenu';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaShoppingCart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../modules/identity/context/authContext';
+import { useCart } from '../modules/cart/context/CartContext'; // Ajusta la ruta si es necesario
 
 const Navbar: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
   const { user } = useAuth();
+  const { cart } = useCart();
+console.log('Roles del usuario:', user?.roles);
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
   const isAdmin =
-    user?.roles?.includes('Admin') || user?.roles?.includes('Editor');
+    user?.roles?.includes('Admin');
 
   const dropdownItem: React.CSSProperties = {
     padding: '10px 16px',
@@ -31,6 +36,7 @@ const Navbar: React.FC = () => {
           alignItems: 'center',
         }}
       >
+        {/* IZQUIERDA */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <button
             onClick={() => setSidebarOpen(true)}
@@ -48,7 +54,7 @@ const Navbar: React.FC = () => {
 
           <h1 style={{ margin: 0, fontSize: '25px' }}>J2 Store</h1>
 
-          {!isAdmin && (
+          {isAdmin && (
             <div
               style={{ position: 'relative', marginLeft: '20px' }}
               onMouseEnter={() => setAdminDropdownOpen(true)}
@@ -81,64 +87,64 @@ const Navbar: React.FC = () => {
                     zIndex: 10,
                   }}
                 >
-                  <Link to="/admin/users" style={dropdownItem}>
-                    Usuarios
-                  </Link>
-                  <Link to="/admin/roles" style={dropdownItem}>
-                    Roles
-                  </Link>
-                  <Link to="/admin/assign-role" style={dropdownItem}>
-                    Asignar rol
-                  </Link>
-                  <Link to="/admin/roles/create" style={dropdownItem}>
-                    Crear rol
-                  </Link>
-                  <Link to="/admin/products/create" style={dropdownItem}>
-                    Crear producto
-                  </Link>
-                  <Link to="profile" style={dropdownItem}>
-                    Perfil
-                  </Link>
-                  <Link to="/admin/categories/create" style={dropdownItem}>
-                    Crear categoria
-                  </Link>
-                  <Link to="/admin/categories" style={dropdownItem}>
-                    Lista categoria
-                  </Link>
-                  <Link to="/admin/products" style={dropdownItem}>
-                    Lista productos
-                  </Link>
-                  <Link to="/products/:id" style={dropdownItem}>
-                    Detail
-                  </Link>
-                  <Link to="/checkout" style={dropdownItem}>
-                    Checkout
-                  </Link>
-                  <Link to="/cart" style={dropdownItem}>
-                    Cart
-                  </Link>
-                  
-                  
+                  <Link to="/admin/users" style={dropdownItem}>Usuarios</Link>
+                  <Link to="/admin/stocks" style={dropdownItem}>Admin stock</Link>
+                  <Link to="/admin/roles" style={dropdownItem}>Roles</Link>
+                  <Link to="/admin/assign-role" style={dropdownItem}>Asignar rol</Link>
+                  <Link to="/admin/roles/create" style={dropdownItem}>Crear rol</Link>
+                  <Link to="/admin/products/create" style={dropdownItem}>Crear producto</Link>
+                  <Link to="/profile" style={dropdownItem}>Perfil</Link>
+                  <Link to="/admin/categories/create" style={dropdownItem}>Crear categoría</Link>
+                  <Link to="/admin/categories" style={dropdownItem}>Lista categoría</Link>
+                  <Link to="/admin/products" style={dropdownItem}>Lista productos</Link>
+                  <Link to="/products/:id" style={dropdownItem}>Detalle</Link>
+                  <Link to="/checkout" style={dropdownItem}>Checkout</Link>
+                  <Link to="/cart" style={dropdownItem}>Carrito</Link>
                 </div>
               )}
             </div>
           )}
         </div>
 
-        {/* Derecha: logo */}
-        <Link to="/">
-          <img
-            src="/assets/icono.png"
-            alt="Logo J2 Store"
-            style={{
-              height: '47px',
-              width: '47px',
-              objectFit: 'cover',
-              borderRadius: '50%',
-              cursor: 'pointer',
-            }}
-          />
-        </Link>
+        {/* DERECHA: carrito + logo */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          {/* Ícono carrito */}
+          <Link to="/cart" style={{ position: 'relative', color: 'white' }}>
+            <FaShoppingCart size={22} />
+            {totalItems > 0 && (
+              <span
+                style={{
+                  position: 'absolute',
+                  top: '-8px',
+                  right: '-10px',
+                  background: 'red',
+                  color: 'white',
+                  borderRadius: '50%',
+                  padding: '2px 6px',
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                }}
+              >
+                {totalItems}
+              </span>
+            )}
+          </Link>
+
+          {/* Logo */}
+          <Link to="/">
+            <img
+              src="/assets/icono.png"
+              alt="Logo J2 Store"
+              style={{
+                height: '47px',
+                width: '47px',
+                objectFit: 'cover',
+                borderRadius: '50%',
+                cursor: 'pointer',
+              }}
+            />
+          </Link>
+        </div>
       </nav>
 
       <SidebarMenu open={sidebarOpen} onClose={() => setSidebarOpen(false)} />

@@ -1,6 +1,7 @@
+// src/components/Header.tsx
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useAuth } from "../modules/identity/context/authContext"; // 🔥 Importamos el contexto
+import { useAuth } from "../modules/identity/context/authContext";
 
 const NavContainer = styled.nav`
   display: flex;
@@ -29,10 +30,24 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const StyledButton = styled.button`
+  color: white;
+  background-color: #d9534f;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #c9302c;
+  }
+`;
+
 function Header() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const isAuthenticated = !!user;// 🔥 Obtenemos el estado y funciones
+  const isAuthenticated = !!user;
 
   return (
     <NavContainer>
@@ -41,7 +56,16 @@ function Header() {
         <StyledLink to="/">Inicio</StyledLink>
         {!isAuthenticated && <StyledLink to="/login">Login</StyledLink>}
         {isAuthenticated && <StyledLink to="/products">Productos</StyledLink>}
-        {isAuthenticated && <button onClick={() => { logout(); navigate("/login"); }}>Cerrar sesión</button>}
+        {isAuthenticated && (
+          <StyledButton
+            onClick={() => {
+              logout();
+              navigate("/login");
+            }}
+          >
+            Cerrar sesión
+          </StyledButton>
+        )}
       </NavLinks>
     </NavContainer>
   );

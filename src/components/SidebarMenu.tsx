@@ -97,7 +97,7 @@ const SidebarMenu: React.FC<SidebarProps> = ({ open, onClose }) => {
           <div>
             {user ? (
               <UserText style={{ marginBottom: '4px' }}>
-                Hola, {user.name}
+                Hola, {user.email}
               </UserText>
             ) : (
               <>

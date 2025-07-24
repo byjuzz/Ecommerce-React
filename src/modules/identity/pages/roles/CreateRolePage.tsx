@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { createRole } from '../../services/roleServices'; // Ajusta la ruta según tu estructura
 
 const CreateRolePage: React.FC = () => {
   const [roleName, setRoleName] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleCreate = (e: React.FormEvent) => {
+  const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!roleName.trim()) {
@@ -14,11 +15,15 @@ const CreateRolePage: React.FC = () => {
       return;
     }
 
-    setError('');
-    alert(`Rol "${roleName}" creado (simulado).`);
-    setRoleName('');
-    // Aquí eventualmente podrías redirigir:
-    // navigate('/admin/roles');
+    try {
+      await createRole(roleName);
+      alert(`Rol "${roleName}" creado exitosamente.`);
+      setRoleName('');
+      navigate('/admin/roles');
+    } catch (err) {
+      console.error('Error al crear el rol:', err);
+      setError('No se pudo crear el rol. Verifica que no exista o revisa tus permisos.');
+    }
   };
 
   const handleCancel = () => {

@@ -4,7 +4,7 @@ import { LoginRequest, User } from '../types/authTypes';
 
 // Config global de Axios
 const api = axios.create({
-  baseURL: 'http://localhost:5132', // Tu API Gateway
+  baseURL: 'http://localhost:6900', // Tu API Gateway
 });
 
 api.interceptors.request.use((config) => {
@@ -16,7 +16,7 @@ api.interceptors.request.use((config) => {
 });
 
 export const login = async (credentials: LoginRequest): Promise<string> => {
-  const response = await api.post("/api/identity/authentication", credentials);
+  const response = await api.post("/identity/authentication", credentials);
   return response.data.accessToken;
 };
 

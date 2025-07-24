@@ -30,7 +30,7 @@ const mockOrder = {
 };
 
 const CustomerListPage: React.FC = () => {
-  const { id } = useParams();
+
   const navigate = useNavigate();
 
   // 🧠 En el futuro podrías hacer: const order = await fetch(`/orders/${id}`)

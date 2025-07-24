@@ -1,69 +1,80 @@
-import React, { useState } from 'react';
-import ProductCard from './ProductCard';
-import Filters from './Filters';
-import { Product } from '../types';
+import React, { useEffect, useState } from 'react';
+import { getProducts } from '../services/productService';
+import { Product, PaginatedResponse } from '../types';
+import ProductCard from '../../cart/pages/ProductCard';
 
-const mockProducts: Product[] = [
-    {
-      id: '1',
-      name: 'Laptop Pro 14',
-      price: 1200,
-      image: 'https://lavictoria.ec/wp-content/uploads/2023/01/LAPTOP-DE-14-PULGADAS-V14-IIL-82C4-LENOVO-2.jpg',
-      category: 'Electrónica'
-    },
-    {
-      id: '2',
-      name: 'Smartphone X Series',
-      price: 799,
-      image: 'https://technostore.es/wp-content/uploads/smartphone_x_series_6.jpeg',
-      category: 'Electrónica'
-    },
-    {
-      id: '3',
-      name: 'Auriculares Bluetooth Pro',
-      price: 149,
-      image: 'https://th.bing.com/th/id/OIP.sk4iS1NslcsdAkbxWMhtxwHaHa?rs=1&pid=ImgDetMain.jpg',
-      category: 'Audio'
-    },
-    {
-      id: '4',
-      name: 'Teclado Mecánico RGB',
-      price: 89,
-      image: 'https://th.bing.com/th/id/OIP.bPl3R1qP-Agt5mcttILp1QHaEK?rs=1&pid=ImgDetMain.jpg',
-      category: 'Accesorios'
-    },
-    {
-      id: '5',
-      name: 'Mouse Inalámbrico',
-      price: 49,
-      image: 'https://th.bing.com/th/id/OIP.eX6p8lsbc2EqlrnhJGyqWAHaHX?rs=1&pid=ImgDetMain.jpg',
-      category: 'Accesorios'
-    },
-    {
-      id: '6',
-      name: 'Monitor 27" Curvo',
-      price: 310,
-      image: 'https://th.bing.com/th/id/R.4558fe92f8410726f98572eb24c84c41?rik=VGAsLUXiBcWYWA&pid=ImgRaw&r=0.jpg'
-    }
-  ];
-  
 
 const ProductList: React.FC = () => {
-  const [search, setSearch] = useState('');
-  const [order, setOrder] = useState<'asc' | 'desc'>('asc');
+  const [products, setProducts] = useState<Product[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const take = 10;
 
-  const filtered = mockProducts
-    .filter((p) => p.name.toLowerCase().includes(search.toLowerCase()))
-    .sort((a, b) => (order === 'asc' ? a.price - b.price : b.price - a.price));
+  useEffect(() => {
+
+    
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const data: PaginatedResponse<Product> = await getProducts(page, take);
+        console.log('📦 Productos obtenidos:', data);
+        setProducts(data.items);
+        setTotalPages(data.pages);
+      } catch (error: any) {
+        console.error('❌ Error loading products:', error.message || error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [page]);
+
+
+
+
+  const goToPrevious = () => {
+    if (page > 1) setPage(prev => prev - 1);
+  };
+
+  const goToNext = () => {
+    if (page < totalPages) setPage(prev => prev + 1);
+  };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <Filters search={search} onSearchChange={setSearch} onOrderChange={setOrder} />
-      <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-        {filtered.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+    <div style={{ padding: '1rem' }}>
+      <h2 style={{ textAlign: 'center' }}>🛍 Catálogo de Productos</h2>
+
+      {loading ? (
+        <p style={{ textAlign: 'center' }}>Cargando productos...</p>
+      ) : (
+        <>
+          <div
+            className="product-list"
+            style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}
+          >
+            {products.length > 0 ? (
+              products.map(product => (
+                <ProductCard key={product.productId} product={product} />
+              ))
+            ) : (
+              <p>No se encontraron productos.</p>
+            )}
+          </div>
+
+          {/* Paginación */}
+          <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+            <button onClick={goToPrevious} disabled={page === 1} style={{ marginRight: '1rem' }}>
+              ◀ Anterior
+            </button>
+            <span>Página {page} de {totalPages}</span>
+            <button onClick={goToNext} disabled={page === totalPages} style={{ marginLeft: '1rem' }}>
+              Siguiente ▶
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

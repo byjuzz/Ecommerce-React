@@ -1,5 +1,6 @@
 // src/routes/AppRoutes.tsx
 import { Routes, Route } from 'react-router-dom';
+import ProtectedRoute from "./ProtectedRoute";
 import HomePage from '../modules/catalog/pages/HomePage';
 import LoginPage from '../modules/identity/pages/LoginPage';
 import CreateUserPage from '../modules/identity/pages/users/CreateUserpage';
@@ -18,8 +19,9 @@ import ProductDetailPage from '../modules/catalog/pages/ProductDetailPage';
 import MyOrdersPage from '../modules/orders/pages/MyOrdersPage';
 import OrderDetailPage from '../modules/orders/pages/OrderDetailPage';
 import CheckoutPage from '../modules/orders/pages/CheckoutPage';
-import CartPage from '../modules/orders/pages/CartPage';
+import CartPage from '../modules/cart/pages/CartPage';
 import CustomerListPage from '../modules/customers/pages/CustomerListPage';
+import AdminStockPage from "../modules/admin/pages/AdminStockPage";
 
 
 
@@ -31,7 +33,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/admin/users/create" element={<CreateUserPage />} />
       <Route path="/admin/users" element={<UserListPage />} />
-      <Route path="/cart" />
+      <Route path="/cart" element={<CartPage />} />
       <Route path="/admin/roles" element={<RoleListPage />} />
       <Route path="/admin/assign-role" element={<AssignRolePage />} />
       <Route path="/admin/roles/create" element={<CreateRolePage />} />
@@ -48,8 +50,9 @@ const AppRoutes = () => {
       <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/admin/customers" element={<CustomerListPage />} />
+      <Route path="/admin/stocks" element={<AdminStockPage />} />
 
-
+  
 
 
 
