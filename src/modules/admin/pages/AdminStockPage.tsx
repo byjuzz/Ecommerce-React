@@ -1,7 +1,7 @@
 // src/modules/admin/pages/AdminStockPage.tsx
 
 import React, { useEffect, useState } from "react";
-import { getOrders, getOrderById, updateStock } from "../services/adminservice";
+import { getOrders, getOrderById, updateStock } from "../services/adminService";
 import OrderList from "../components/OrderList";
 import StockViewer from "../components/StockViewer";
 import { OrderDto } from "../types/orderTypes"; // Asegúrate que esta ruta esté bien

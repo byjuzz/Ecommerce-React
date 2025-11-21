@@ -1,6 +1,6 @@
 // src/routes/AppRoutes.tsx
 import { Routes, Route } from 'react-router-dom';
-import ProtectedRoute from "./ProtectedRoute";
+//import ProtectedRoute from "./ProtectedRoute";
 import HomePage from '../modules/catalog/pages/HomePage';
 import LoginPage from '../modules/identity/pages/LoginPage';
 import CreateUserPage from '../modules/identity/pages/users/CreateUserpage';
