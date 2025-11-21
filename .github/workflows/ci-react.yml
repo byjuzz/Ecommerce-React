@@ -1,0 +1,30 @@
+# Archivo: .github/workflows/ci-react.yml
+name: CI - React Frontend
+
+on:
+  push:
+    branches: [ "main" ]  # de momento solo main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+        cache: "npm"
+
+    - name: Install dependencies
+      run: npm ci
+
+    # Si aún no tienes tests, la dejamos comentada o la simulamos
+    # - name: Run tests
+    #   run: npm test -- --watch=false
+
+    - name: Build app
+      run: npm run build
